@@ -61,15 +61,15 @@ export default function Navbar() {
       </button>
       {menuOpen && (
         <div className="md:hidden absolute top-[5rem] right-[1rem] mt-2 bg-white shadow-lg rounded-md py-2 w-[15rem]">
-          <button className="block px-4 py-2 text-[16px] text-gray-800 hover:bg-gray-200 w-full text-left">
+          <Link href={"/"} className="block px-4 py-2 text-[16px] text-gray-800 hover:bg-gray-200 w-full text-left">
             Explore
-          </button>
-          <button className="block px-4 py-2 text-[16px] text-gray-800 hover:bg-gray-200 w-full text-left">
+          </Link>
+          <Link href={"/auth/signin"} className="block px-4 py-2 text-[16px] text-gray-800 hover:bg-gray-200 w-full text-left">
             Login
-          </button>
-          <button className="block px-4 py-2 text-[16px] text-gray-800 hover:bg-gray-200 w-full text-left">
+          </Link>
+          <Link href={"/auth/signup"} className="block px-4 py-2 text-[16px] text-gray-800 hover:bg-gray-200 w-full text-left">
             Register
-          </button>
+          </Link>
         </div>
       )}
 
@@ -77,18 +77,21 @@ export default function Navbar() {
         <div>{session.data?.user?.name}</div>
       ) : (
         <div className="hidden md:flex grow items-center justify-between font-semibold gap-[2rem]">
-          <button className="grow text-[26px] font-semibold text-start">
-            <Link href={"#"}>Explore</Link>
-          </button>
-          <button type="button" className="text-[26px] flex-none">
-            <Link href={"/auth/signin"}>Login</Link>
-          </button>
-          <button
-            type="button"
-            className="bg-primary text-white px-[1rem] text-[26px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none"
+          <Link
+            href={"/"}
+            className="grow text-[26px] font-semibold text-start"
           >
-            <Link href={"/auth/signup"}>Register</Link>
-          </button>
+            Explore
+          </Link>
+          <Link href={"/auth/signin"} className="text-[26px] flex-none">
+            Login
+          </Link>
+          <Link
+            href={"/auth/signup"}
+            className="flex items-center justify-center bg-primary text-white px-[1rem] text-[26px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none"
+          >
+            Register
+          </Link>
         </div>
       )}
     </div>
