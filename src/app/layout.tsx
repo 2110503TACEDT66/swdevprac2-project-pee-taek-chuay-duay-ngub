@@ -21,6 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <Navbar />
+          <div className="h-[105px]">{/*THIS IS JUST FOR PADDING FORM NAVIGATION BAR*/}</div>
           {children}
         </NextAuthProvider>
       </body>
