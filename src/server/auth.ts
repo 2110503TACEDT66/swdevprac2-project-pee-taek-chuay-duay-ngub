@@ -70,6 +70,7 @@ const authOptions: NextAuthOptions = {
     pages: {
         error: "/",
         // signIn: "/auth/login",
+        newUser: "/auth/signup",
     },
 };
 

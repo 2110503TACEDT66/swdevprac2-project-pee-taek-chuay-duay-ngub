@@ -6,6 +6,8 @@ export const env = createEnv({
     MONGODB_URI: z.string().url(),
     NEXTAUTH_SECRET: z.string().min(1),
     NODE_ENV: z.string().min(1).default("development"),
+    INTERN_PORTAL_BACKEND_URL: z.string().url(),
+    INTERN_PORTAL_BACKEND_API_KEY: z.string().min(1),
   },
  
   /**
