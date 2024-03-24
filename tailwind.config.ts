@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "primary": "#FF5050",
+        "primary": "#FF5E68",
         "cutoff-black": "#000000",
         "cutoff-white": "#FDFDFD",
         "gradient-bg": "#EFEFEF",
