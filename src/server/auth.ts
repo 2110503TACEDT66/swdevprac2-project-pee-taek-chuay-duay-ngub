@@ -5,14 +5,21 @@ import { env } from "@/env";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "./db/mongo_db";
 import Credentials from "next-auth/providers/credentials";
+import { callInternAPI, InternApiRoutes } from "@/utils/routing";
 // mongo adapter
-
+type Roles = 'user' | 'admin' | 'company';
 type ReturnedUserData = {
-    id: string;
-    username: string;
+    _id: string;
+    name: string;
+    telephoneNumber: string;
     email: string;
-    verified: boolean;
-};
+    role: Roles;
+}
+
+interface Response {
+    success: boolean;
+    user: ReturnedUserData;
+}
 
 const authOptions: NextAuthOptions = {
     adapter: MongoDBAdapter(clientPromise, {
@@ -29,27 +36,22 @@ const authOptions: NextAuthOptions = {
                 if (!credentials) {
                     return null;
                 }
-                if (credentials.username === "admin@mail.com" && credentials.password === "admin") {
-                    return {
-                        id: "admin",
-                        email: "admin@mail.com",
-                        name: "Admin",
-                    };
-                }
-                const client = await clientPromise;
-                const user = await client.db().collection("users").findOne({
-                    email: credentials.username,
-                    password: credentials.password
-                });
-                if (user && (user.password as string) === credentials.password) {
-                    return {
-                        id: (user._id as unknown as string),
-                        username: user.username as string,
-                        email: user.email as string,
-                    };
-                }
-                else {
+                const result: Response = await callInternAPI(
+                    InternApiRoutes.PostLoginUser,
+                    'POST',
+                    {
+                        email: credentials.username,
+                        password: credentials.password,
+                    }
+                )
+                if (!result.success || !result.user) {
                     return null;
+                }
+                return {
+                    id: result.user._id,
+                    name: result.user.name,
+                    email: result.user.email,
+                    role: result.user.role,
                 }
             }
         }),

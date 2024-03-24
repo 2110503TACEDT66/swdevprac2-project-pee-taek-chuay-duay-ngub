@@ -4,7 +4,7 @@ import { callInternAPI, InternApiRoutes } from "@/utils/routing";
 
 interface ClientRequestInput {
     name: string;
-    telephone: string;
+    telephoneNumber: string;
     email: string;
     password: string;
 }
@@ -14,7 +14,7 @@ export async function POST(request: Request): Promise<Response> {
         const body: ClientRequestInput = await request.json()
         const inputs = {
             name: body.name,
-            telephoneNumber: body.telephone,
+            telephoneNumber: body.telephoneNumber,
             email: body.email,
             password: body.password
         }

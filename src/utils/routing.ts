@@ -14,6 +14,7 @@ export enum InternApiRoutes {
     UpdateInterviewById = "/interviews/{id}",
     DeleteInterviewById = "/interviews/{id}",
     PostRegisterUser = "/auth/register",
+    PostLoginUser = "/auth/login",
 }
 
 type Methods = "GET" | "POST" | "PUT" | "DELETE";
@@ -31,6 +32,7 @@ export function callInternAPI<T = Company>(api: InternApiRoutes.DeleteCompanyByI
 export function callInternAPI<T = Interview>(api: InternApiRoutes.BookInterview, method: Methods, body: any): Promise<T>;
 export function callInternAPI<T = Interview>(api: InternApiRoutes.UpdateInterviewById, method: Methods, body: any): Promise<T>;
 export function callInternAPI<T = Interview>(api: InternApiRoutes.DeleteInterviewById, method: Methods, body: any): Promise<T>;
+export function callInternAPI<T = RegisterUserResponse>(api: InternApiRoutes.PostLoginUser, method: Methods, body: any): Promise<T>;
 
 // Generic implementation
 export async function callInternAPI<T>(api: InternApiRoutes, method: Methods, body?: [string: string]): Promise<T> {
@@ -49,7 +51,11 @@ export async function callInternAPI<T>(api: InternApiRoutes, method: Methods, bo
         body: JSON.stringify(body),
     } as RequestInit;
 
-    console.log('API Call:', url, fetchbody);
+    console.log('API Call:', url, {
+        method: method,
+        body: JSON.stringify(body),
+    });
+
     const res = await fetch(url, fetchbody);
     if (res.ok) {
         return res.json();
