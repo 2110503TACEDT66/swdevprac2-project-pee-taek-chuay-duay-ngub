@@ -29,18 +29,19 @@ const authOptions: NextAuthOptions = {
         Credentials({
             name: "Credentials",
             credentials: {
-                username: { label: "Username", type: "text", placeholder: "jsmith" },
+                email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
                 if (!credentials) {
                     return null;
                 }
+                console.log(credentials);
                 const result: Response = await callInternAPI(
                     InternApiRoutes.PostLoginUser,
                     'POST',
                     {
-                        email: credentials.username,
+                        email: credentials.email,
                         password: credentials.password,
                     }
                 )

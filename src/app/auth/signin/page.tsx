@@ -22,9 +22,10 @@ export default function Signup() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         signIn('credentials', {
-            email,
-            password,
-            callbackUrl: '/',
+            email: email,
+            password: password,
+            // callbackUrl: '/auth/signin',
+            redirect: false,
         });
     };
 
