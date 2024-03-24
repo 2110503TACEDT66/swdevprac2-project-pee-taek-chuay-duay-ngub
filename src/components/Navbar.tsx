@@ -34,6 +34,7 @@ export default function Navbar() {
 
   return (
     <div className="flex items-center justify-between bg-cutoff-white text-black fixed w-full h-[105px] z-20 top-0 border-2 border-gray-300 px-[2rem] gap-[2rem]">
+      {/*LOGO*/}
       <div className="flex flex-none items-center">
         <Image
           src="/images/cedt-logo.png"
@@ -46,6 +47,7 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/*RIGHT SIDE NAVIGATION BAR (PHONE SCREEN)*/}
       <button
         onClick={toggleMenu}
         className="md:hidden hover:bg-zinc-200 p-[10px] rounded-[10px]"
@@ -108,7 +110,8 @@ export default function Navbar() {
         </div>
       )}
 
-      {session.data?.user?.name ? (
+      {/*RIGHT SIDE NAVIGATION BAR (DESKTOP SCREEN)*/}
+      {session.data?.user ? (
         <div className="hidden md:flex grow items-center justify-between font-semibold gap-[2rem]">
           <Link
             href={"/"}
