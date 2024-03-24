@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import DropdownSelector from "./DropdownSelector";
 import NavBarProfileCard from "./NavBarProfileCard";
+import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +25,21 @@ export default function Navbar() {
 
   const dropDownItems2 = [
     { text: "Profile", url: "#" },
-    { text: "Sign Out", url: "#" },
+    { text: "Sign Out", url: "#", callback: () => {
+      signOut({
+        callbackUrl: "/",
+      });
+    }},
+  ];
+
+  const dropDownItems3 = [
+    { text: "Explore", url: "/" },
+    { text: "Profile", url: "#" },
+    { text: "Sign Out", url: "#", callback: () => {
+      signOut({
+        callbackUrl: "/",
+      });
+    }},
   ];
 
   useEffect(() => {
@@ -77,7 +92,11 @@ export default function Navbar() {
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </button>
-      <DropdownSelector openState={menuOpen} setOpenState={setMenuOpen} items={dropDownItems1} />
+      {session.data?.user ? (
+        <DropdownSelector openState={menuOpen} setOpenState={setMenuOpen} items={dropDownItems3} />
+      ) : (
+        <DropdownSelector openState={menuOpen} setOpenState={setMenuOpen} items={dropDownItems1} />
+      )}
 
       {/*RIGHT SIDE NAVIGATION BAR (DESKTOP SCREEN)*/}
       {session.data?.user ? (
