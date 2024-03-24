@@ -61,8 +61,9 @@ export async function callInternAPI<T>(api: InternApiRoutes, method: Methods, bo
             url: res.url,
             body: await res.text(),
         };
+        console.error(`Error ${error.status}: ${error.statusText} at ${error.url} - ${error.body}`);
         throw new Error(
-            `Error ${error.status}: ${error.statusText} at ${error.url} - ${error.body}`
+            `Error ${error.status}: ${error.statusText} - ${error.body}`
         );
     }
 }
