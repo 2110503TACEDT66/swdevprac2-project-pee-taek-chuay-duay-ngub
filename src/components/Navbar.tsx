@@ -100,7 +100,7 @@ export default function Navbar() {
 
       {/*RIGHT SIDE NAVIGATION BAR (DESKTOP SCREEN)*/}
       {session.data?.user ? (
-        <div className="hidden md:flex grow items-center justify-between font-medium gap-[2rem]">
+        <div className="hidden md:flex grow items-center justify-end font-medium gap-[2rem]">
           <NavBarProfileCard setProfileMenuOpen={setProfileMenuOpen} profileMenuOpen={profileMenuOpen} username={session.data.user.name ?? ""} />
           <DropdownSelector openState={profileMenuOpen} setOpenState={setProfileMenuOpen} items={dropDownItems2} />
         </div>
