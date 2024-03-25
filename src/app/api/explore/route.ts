@@ -16,7 +16,6 @@ export async function GET(request: Request): Promise<Response> {
             InternApiRoutes.GetCompanies,
             'GET',
         )
-        console.log('Result:', result)
         return new Response(JSON.stringify(result), {
             headers: {
                 'Content-Type': 'application/json',
