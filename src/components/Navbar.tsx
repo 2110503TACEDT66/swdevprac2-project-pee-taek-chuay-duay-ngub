@@ -26,11 +26,15 @@ export default function Navbar() {
   const dropDownItems2 = [
     { text: "Explore", url: "/explore" },
     { text: "Profile", url: "#" },
-    { text: "Sign Out", url: "#", callback: () => {
-      signOut({
-        callbackUrl: "/",
-      });
-    }},
+    {
+      text: "Sign Out",
+      url: "#",
+      callback: () => {
+        signOut({
+          callbackUrl: "/",
+        });
+      },
+    },
   ];
 
   useEffect(() => {
@@ -84,36 +88,52 @@ export default function Navbar() {
         </svg>
       </button>
       {session.data?.user ? (
-        <DropdownSelector openState={menuOpen} setOpenState={setMenuOpen} items={dropDownItems2} />
+        <DropdownSelector
+          openState={menuOpen}
+          setOpenState={setMenuOpen}
+          items={dropDownItems2}
+        />
       ) : (
-        <DropdownSelector openState={menuOpen} setOpenState={setMenuOpen} items={dropDownItems1} />
+        <DropdownSelector
+          openState={menuOpen}
+          setOpenState={setMenuOpen}
+          items={dropDownItems1}
+        />
       )}
 
       {/*RIGHT SIDE NAVIGATION BAR (DESKTOP SCREEN)*/}
       {session.data?.user ? (
         <div className="hidden md:flex grow items-center justify-end font-medium gap-[2rem]">
-          <NavBarProfileCard setProfileMenuOpen={setProfileMenuOpen} profileMenuOpen={profileMenuOpen} username={session.data.user.name ?? ""} />
-          <DropdownSelector openState={profileMenuOpen} setOpenState={setProfileMenuOpen} items={dropDownItems2} />
+          <NavBarProfileCard
+            setProfileMenuOpen={setProfileMenuOpen}
+            profileMenuOpen={profileMenuOpen}
+            username={session.data.user.name ?? ""}
+          />
+          <DropdownSelector
+            openState={profileMenuOpen}
+            setOpenState={setProfileMenuOpen}
+            items={dropDownItems2}
+          />
         </div>
       ) : (
-        <div className="hidden md:flex grow items-center justify-end font-medium gap-[2rem]">
+        <div className="hidden md:flex grow items-center justify-between font-medium gap-[2rem]">
           <Link
             href={"/explore"}
-            className="text-[24px] flex-none hover:drop-shadow-lg"
+            className="text-[24px] grow hover:drop-shadow-lg"
           >
-            Explore
+            เลือกดูบริษัท
           </Link>
           <Link
             href={"/auth/signin"}
             className="text-[24px] flex-none hover:drop-shadow-lg"
           >
-            Login
+            เข้าสู่ระบบ
           </Link>
           <Link
             href={"/auth/signup"}
             className="flex items-center justify-center bg-primary text-white px-[1rem] text-[24px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none"
           >
-            Register
+            ลงทะเบียน
           </Link>
         </div>
       )}
