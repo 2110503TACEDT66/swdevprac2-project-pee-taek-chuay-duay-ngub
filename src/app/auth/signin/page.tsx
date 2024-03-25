@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ export default function Signup() {
 
   const { email, password } = formData;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -19,7 +19,7 @@ export default function Signup() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     signIn("credentials", {
       email: email,
@@ -49,13 +49,13 @@ export default function Signup() {
       ) : (
         <form
           onSubmit={handleSubmit}
-          className="p-8 bg-white rounded-lg shadow-md"
+          className="p-[30px] px-[50px] bg-white rounded-lg shadow-md w-[600px] h-[400px]" // Adjust width here
         >
-          <div className="text-center text-black text-[25px] font-semibold">
-            LOG IN
+          <div className="text-center text-black text-3xl font-semibold mb-6 mt-4">
+            LOGIN
           </div>
           <div className="mb-4">
-            <label htmlFor="email" className="block mb-2">
+            <label htmlFor="email" className="block mb-2 text-black">
               Email Address
             </label>
             <input
@@ -69,7 +69,7 @@ export default function Signup() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block mb-2">
+            <label htmlFor="password" className="block mb-2  text-black">
               Password
             </label>
             <input
@@ -84,7 +84,7 @@ export default function Signup() {
           </div>
           <button
             type="submit"
-            className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="w-full p-2 bg-blue-500 text-white rounded-md  bg-primary mt-4"
           >
             Sign In
           </button>
@@ -93,4 +93,3 @@ export default function Signup() {
     </div>
   );
 }
-

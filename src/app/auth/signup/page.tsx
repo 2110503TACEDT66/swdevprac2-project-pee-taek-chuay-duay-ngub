@@ -1,17 +1,19 @@
-"use client";
+'use client'
 import { useState } from 'react';
 
 export default function Signup() {
     const [formData, setFormData] = useState({
         email: '',
-        name: '',
+        Firstname : '',
+        Lastname: '',
         telephoneNumber: '',
         password: '',
+        confirmPassword: '', // Added confirmPassword field
     });
 
-    const { email, name, telephoneNumber, password } = formData;
+    const { email, Firstname, Lastname, telephoneNumber, password, confirmPassword } = formData;
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -19,24 +21,94 @@ export default function Signup() {
         });
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // Implement your signup logic here
-        fetch('/api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-        console.log('Form Data:', formData);
+    const handleSubmit = async (e) => {
+        if(password != confirmPassword){
+            alert('correct password');
+        }else{
+            e.preventDefault();
+            // Implement your signup logic here
+            fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    name: Firstname+" "+Lastname,
+                    telephoneNumber: telephoneNumber,
+                    password: password
+                }),
+            });
+            console.log('Form Data:', {
+                email: email,
+                name: Firstname+" "+Lastname,
+                telephoneNumber: telephoneNumber,
+                password: password
+            });
+        }
+
     };
 
     return (
         <div className="flex justify-center items-center h-screen bg-gray-100 text-primary">
-            <form onSubmit={handleSubmit} className="p-8 bg-white rounded-lg shadow-md">
+            <form onSubmit={handleSubmit} className="p-[30px] px-[50px] bg-white rounded-lg shadow-md w-[600px] h-[600px] ">
+                <div className="text-center text-black text-3xl font-semibold mb-6 mt-4">
+                    REGISTER
+                </div>
+                <div className="flex mb-4">
+                    <div className="w-1/2 mr-2">
+                        <label htmlFor="Firstname" className="block mb-2 text-black">Firstname</label>
+                        <input
+                            type="text"
+                            name="Firstname"
+                            id="Firstname"
+                            value={Firstname}
+                            onChange={handleChange}
+                            required
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                        />
+                    </div>
+                    <div className="w-1/2 ml-2">
+                        <label htmlFor="Lastname" className="block mb-2 text-black">Lastname</label>
+                        <input
+                            type="text"
+                            name="Lastname"
+                            id="Lastname"
+                            value={Lastname}
+                            onChange={handleChange}
+                            required
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                        />
+                    </div>
+                </div>
+                <div className="flex mb-4">
+                    <div className="w-1/2 mr-2">
+                        <label htmlFor="password" className="block mb-2 text-black">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            value={password}
+                            onChange={handleChange}
+                            required
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                        />
+                    </div>
+                    <div className="w-1/2 ml-2">
+                        <label htmlFor="confirmPassword" className="block mb-2 text-black">Confirm Password</label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            value={confirmPassword}
+                            onChange={handleChange}
+                            required
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                        />
+                    </div>
+                </div>
                 <div className="mb-4">
-                    <label htmlFor="email" className="block mb-2">Email Address</label>
+                    <label htmlFor="email" className="block mb-2 text-black">Email Address</label>
                     <input
                         type="email"
                         name="email"
@@ -48,19 +120,7 @@ export default function Signup() {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="name" className="block mb-2">Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        value={name}
-                        onChange={handleChange}
-                        required
-                        className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="telephoneNumber" className="block mb-2">Telephone</label>
+                    <label htmlFor="telephoneNumber" className="block mb-2 text-black">Telephone</label>
                     <input
                         type="tel"
                         name="telephoneNumber"
@@ -71,19 +131,7 @@ export default function Signup() {
                         className="w-full p-2 border border-gray-300 rounded-md"
                     />
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="password" className="block mb-2">Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        value={password}
-                        onChange={handleChange}
-                        required
-                        className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                </div>
-                <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-md bg-primary mt-4">
                     Sign Up
                 </button>
             </form>
