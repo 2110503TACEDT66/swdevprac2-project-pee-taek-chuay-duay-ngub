@@ -51,6 +51,9 @@ export default function Signup() {
           onSubmit={handleSubmit}
           className="p-8 bg-white rounded-lg shadow-md"
         >
+          <div className="text-center text-black text-[25px] font-semibold">
+            LOG IN
+          </div>
           <div className="mb-4">
             <label htmlFor="email" className="block mb-2">
               Email Address

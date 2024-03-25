@@ -12,11 +12,11 @@ export default function Home() {
             height={90}
             alt="CEDT Logo"
           />
-          <div className="text-[120px] font-bold select-none">
+          <div className="text-[120px] font-bold select-none text-black">
             JOB<span className="text-[#A11F2C]">F</span>AIR
           </div>
         </div>
-        <div className="text-[32px] my-[20px] font-light">
+        <div className="text-[32px] my-[20px] font-light text-black">
           เปิดประตูสู่อนาคตที่คุณต้องการด้วยงานในฝัน<br></br>
           ค้นหาโอกาสมากมายของคุณที่นี่
         </div>
