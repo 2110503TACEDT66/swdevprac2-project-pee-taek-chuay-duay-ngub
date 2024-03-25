@@ -6,7 +6,7 @@ type Props = {
   username: string;
 };
 
-export default function NavBarProfileCard({ setProfileMenuOpen, profileMenuOpen, username}: Props) {
+export default function NavBarProfileCard({ setProfileMenuOpen, profileMenuOpen, username }: Props) {
   const toggleProfileMenu = () => {
     setProfileMenuOpen(!profileMenuOpen);
   };
@@ -26,7 +26,7 @@ export default function NavBarProfileCard({ setProfileMenuOpen, profileMenuOpen,
       </svg>
       <div className="flex flex-col justify-center items-start">
         <div className="text-xl">{username}</div>
-        <div className="text-sm text-gray-600">Job seeker</div>
+        <div className="text-sm text-gray-600">role</div>
       </div>
     </button>
   );

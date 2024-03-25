@@ -35,7 +35,7 @@ export function callInternAPI<T = Interview>(api: InternApiRoutes.DeleteIntervie
 export function callInternAPI<T = RegisterUserResponse>(api: InternApiRoutes.PostLoginUser, method: Methods, body: any): Promise<T>;
 
 // Generic implementation
-export async function callInternAPI<T>(api: InternApiRoutes, method: Methods, body?: [string: string]): Promise<T> {
+export async function callInternAPI<T>(api: InternApiRoutes|string, method: Methods, body?: [string: string]): Promise<T> {
     // Replace dynamic path segments here if needed, e.g., replace {id} with actual ID
     const url = `${env.INTERN_PORTAL_BACKEND_URL}${api}`;
 

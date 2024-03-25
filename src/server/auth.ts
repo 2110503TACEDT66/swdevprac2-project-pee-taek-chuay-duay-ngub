@@ -13,7 +13,7 @@ type ReturnedUserData = {
     name: string;
     telephoneNumber: string;
     email: string;
-    role: Roles;
+    role: string;
 }
 
 interface Response {
