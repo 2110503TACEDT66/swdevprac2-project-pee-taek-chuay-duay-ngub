@@ -101,23 +101,11 @@ export default function Navbar() {
       {/*RIGHT SIDE NAVIGATION BAR (DESKTOP SCREEN)*/}
       {session.data?.user ? (
         <div className="hidden md:flex grow items-center justify-between font-medium gap-[2rem]">
-          <Link
-            href={"/"}
-            className="grow text-[24px] font-medium text-start hover:drop-shadow-lg"
-          >
-            Explore
-          </Link>
           <NavBarProfileCard setProfileMenuOpen={setProfileMenuOpen} profileMenuOpen={profileMenuOpen} username={session.data.user.name ?? ""} />
           <DropdownSelector openState={profileMenuOpen} setOpenState={setProfileMenuOpen} items={dropDownItems2} />
         </div>
       ) : (
         <div className="hidden md:flex grow items-center justify-between font-medium gap-[2rem]">
-          <Link
-            href={"/"}
-            className="grow text-[24px] font-medium text-start hover:drop-shadow-lg"
-          >
-            Explore
-          </Link>
           <Link
             href={"/auth/signin"}
             className="text-[24px] flex-none hover:drop-shadow-lg"
