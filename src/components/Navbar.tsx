@@ -24,15 +24,6 @@ export default function Navbar() {
   ];
 
   const dropDownItems2 = [
-    { text: "Profile", url: "#" },
-    { text: "Sign Out", url: "#", callback: () => {
-      signOut({
-        callbackUrl: "/",
-      });
-    }},
-  ];
-
-  const dropDownItems3 = [
     { text: "Explore", url: "/explore" },
     { text: "Profile", url: "#" },
     { text: "Sign Out", url: "#", callback: () => {
@@ -59,7 +50,7 @@ export default function Navbar() {
   return (
     <div className="flex items-center justify-between bg-cutoff-white text-black fixed w-full h-[105px] z-20 top-0 border-2 border-gray-300 px-[2rem] gap-[2rem]">
       {/*LOGO*/}
-      <div className="flex flex-none items-center">
+      <Link href={"/"} className="flex flex-none items-center">
         <Image
           src="/images/cedt-logo.png"
           width={110}
@@ -69,7 +60,7 @@ export default function Navbar() {
         <div className="text-[38px] font-medium select-none">
           JOB<span className="text-[#A11F2C]">F</span>AIR
         </div>
-      </div>
+      </Link>
 
       {/*RIGHT SIDE NAVIGATION BAR (PHONE SCREEN)*/}
       <button
@@ -93,7 +84,7 @@ export default function Navbar() {
         </svg>
       </button>
       {session.data?.user ? (
-        <DropdownSelector openState={menuOpen} setOpenState={setMenuOpen} items={dropDownItems3} />
+        <DropdownSelector openState={menuOpen} setOpenState={setMenuOpen} items={dropDownItems2} />
       ) : (
         <DropdownSelector openState={menuOpen} setOpenState={setMenuOpen} items={dropDownItems1} />
       )}
@@ -106,6 +97,12 @@ export default function Navbar() {
         </div>
       ) : (
         <div className="hidden md:flex grow items-center justify-end font-medium gap-[2rem]">
+          <Link
+            href={"/explore"}
+            className="text-[24px] flex-none hover:drop-shadow-lg"
+          >
+            Explore
+          </Link>
           <Link
             href={"/auth/signin"}
             className="text-[24px] flex-none hover:drop-shadow-lg"

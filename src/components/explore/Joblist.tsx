@@ -29,9 +29,9 @@ const JobList = () => {
     }, []);
 
     return (
-        <div className="container mx-auto px-4">
+        <div className="flex mx-auto flex-wrap gap-3 max-w-[70vw]">
             {jobs.map(job => (
-                <div key={job._id} className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-5">
+                <div key={job._id} className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
                     <div className="md:flex">
                         <div className="md:flex-shrink-0">
                             <img className="h-48 w-full object-cover md:w-48" src={job.image} alt="Company logo" />

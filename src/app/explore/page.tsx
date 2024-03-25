@@ -3,7 +3,7 @@ import JobList from '@/components/explore/Joblist';
 
 const HomePage = () => {
     return (
-        <div>
+        <div className='text-black bg-white'>
             <main>
                 <JobList />
             </main>
