@@ -18,7 +18,7 @@ export default function Navbar() {
   const session = useSession();
 
   const dropDownItems1 = [
-    { text: "Explore", url: "/" },
+    { text: "Explore", url: "/explore" },
     { text: "Sign In", url: "/auth/signin" },
     { text: "Register", url: "/auth/signup" },
   ];
@@ -33,7 +33,7 @@ export default function Navbar() {
   ];
 
   const dropDownItems3 = [
-    { text: "Explore", url: "/" },
+    { text: "Explore", url: "/explore" },
     { text: "Profile", url: "#" },
     { text: "Sign Out", url: "#", callback: () => {
       signOut({
@@ -105,7 +105,7 @@ export default function Navbar() {
           <DropdownSelector openState={profileMenuOpen} setOpenState={setProfileMenuOpen} items={dropDownItems2} />
         </div>
       ) : (
-        <div className="hidden md:flex grow items-center justify-between font-medium gap-[2rem]">
+        <div className="hidden md:flex grow items-center justify-end font-medium gap-[2rem]">
           <Link
             href={"/auth/signin"}
             className="text-[24px] flex-none hover:drop-shadow-lg"
