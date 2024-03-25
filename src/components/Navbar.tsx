@@ -62,11 +62,11 @@ export default function Navbar() {
       <div className="flex flex-none items-center">
         <Image
           src="/images/cedt-logo.png"
-          width={120}
-          height={45}
+          width={110}
+          height={40}
           alt="CEDT Logo"
         />
-        <div className="text-[42px] font-semibold select-none">
+        <div className="text-[38px] font-medium select-none">
           JOB<span className="text-[#A11F2C]">F</span>AIR
         </div>
       </div>
@@ -100,10 +100,10 @@ export default function Navbar() {
 
       {/*RIGHT SIDE NAVIGATION BAR (DESKTOP SCREEN)*/}
       {session.data?.user ? (
-        <div className="hidden md:flex grow items-center justify-between font-semibold gap-[2rem]">
+        <div className="hidden md:flex grow items-center justify-between font-medium gap-[2rem]">
           <Link
             href={"/"}
-            className="grow text-[26px] font-semibold text-start hover:drop-shadow-lg"
+            className="grow text-[24px] font-medium text-start hover:drop-shadow-lg"
           >
             Explore
           </Link>
@@ -111,22 +111,22 @@ export default function Navbar() {
           <DropdownSelector openState={profileMenuOpen} setOpenState={setProfileMenuOpen} items={dropDownItems2} />
         </div>
       ) : (
-        <div className="hidden md:flex grow items-center justify-between font-semibold gap-[2rem]">
+        <div className="hidden md:flex grow items-center justify-between font-medium gap-[2rem]">
           <Link
             href={"/"}
-            className="grow text-[26px] font-semibold text-start hover:drop-shadow-lg"
+            className="grow text-[24px] font-medium text-start hover:drop-shadow-lg"
           >
             Explore
           </Link>
           <Link
             href={"/auth/signin"}
-            className="text-[26px] flex-none hover:drop-shadow-lg"
+            className="text-[24px] flex-none hover:drop-shadow-lg"
           >
             Login
           </Link>
           <Link
             href={"/auth/signup"}
-            className="flex items-center justify-center bg-primary text-white px-[1rem] text-[26px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none"
+            className="flex items-center justify-center bg-primary text-white px-[1rem] text-[24px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none"
           >
             Register
           </Link>
