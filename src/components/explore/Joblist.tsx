@@ -49,55 +49,48 @@ const JobList = () => {
 
     return (
         <div>
-            {
-                session.data?.user ?
-                    (
-                        <div>
-                            <div className="flex justify-center">
-                                <input
-                                    type="text"
-                                    placeholder="Search companies..."
-                                    value={searchTerm}
-                                    onChange={e => setSearchTerm(e.target.value)}
-                                    className="w-1/2 px-4 py-3 border border-gray-300 rounded-3xl my-[60px]"
-                                />
+            (
+            <div>
+                <div className="flex justify-center">
+                    <input
+                        type="text"
+                        placeholder="Search companies..."
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        className="w-1/2 px-4 py-3 border border-gray-300 rounded-3xl my-[60px]"
+                    />
+                </div>
+                <div className="flex mx-auto flex-wrap gap-3 max-w-[80vw]">
+                    {filteredJobs?.map(job => (
+                        <Link href={(
+                            session.data?.user?.role === 'admin' ? '/profile/' : '/company/'
+                        ) + String(job._id)} key={job._id}>
+                            <div className="max-w-sm overflow-hidden shadow-lg p-5 rounded">
+                                <div className="px-6 py-4">
+                                    <div className="font-bold text-xl mb-2">{job.name}</div>
+                                    <p className="text-gray-700 text-base">{job.description}</p>
+                                </div>
+                                <img src={job.image} alt={job.name} className="w-full" />
                             </div>
-                            <div className="flex mx-auto flex-wrap gap-3 max-w-[80vw]">
-                                {filteredJobs?.map(job => (
-                                    <Link href={(
-                                        session.data?.user?.role === 'admin' ? '/profile/' : '/company/'
-                                    ) + String(job._id)} key={job._id}>
-                                        <div className="max-w-sm overflow-hidden shadow-lg p-5 rounded">
-                                            <div className="px-6 py-4">
-                                                <div className="font-bold text-xl mb-2">{job.name}</div>
-                                                <p className="text-gray-700 text-base">{job.description}</p>
-                                            </div>
-                                            <img src={job.image} alt={job.name} className="w-full" />
-                                        </div>
-                                    </Link>
+                        </Link>
 
-                                ))}
-                            </div>
-                            <div className="flex justify-center mt-8 mb-5">
-                                {/* Pagination buttons */}
-                                {Array.from({ length: Math.ceil(jobs.length / jobsPerPage) }, (_, i) => (
-                                    <button
-                                        key={i}
-                                        onClick={() => paginate(i + 1)}
-                                        className={`mx-1 px-4 py-2 border border-gray-300 rounded-md ${currentPage === i + 1 ? 'bg-primary text-white' : 'bg-white text-primary'
-                                            }`}
-                                    >
-                                        {i + 1}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="flex justify-center items-center h-[100vh]">
-                            <Spinner />
-                        </div>
-                    )
-            }
+                    ))}
+                </div>
+                <div className="flex justify-center mt-8 mb-5">
+                    {/* Pagination buttons */}
+                    {Array.from({ length: Math.ceil(jobs.length / jobsPerPage) }, (_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => paginate(i + 1)}
+                            className={`mx-1 px-4 py-2 border border-gray-300 rounded-md ${currentPage === i + 1 ? 'bg-primary text-white' : 'bg-white text-primary'
+                                }`}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+                </div>
+            </div>
+            )
         </div>
     );
 };
