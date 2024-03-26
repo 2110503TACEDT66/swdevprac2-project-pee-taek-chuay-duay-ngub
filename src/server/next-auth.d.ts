@@ -12,6 +12,7 @@ declare module "next-auth" {
       email: string
       telephoneNumber: string
       role: string
+      company?: string
     }
   }
 
@@ -22,6 +23,7 @@ declare module "next-auth" {
     email: string
     telephoneNumber: string
     role: string
+    company?: string
   }
 
   interface token {
@@ -30,5 +32,6 @@ declare module "next-auth" {
     email: string
     telephoneNumber: string
     role: string
+    company?: string
   }
 }
