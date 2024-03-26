@@ -1,6 +1,6 @@
 import { User, Interview, mockUser, mockCompany, mockInterview, Company } from "@/mock_data/mocks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 type Prop = {
   user: User;
 };
@@ -34,9 +34,9 @@ export default function UserProfile({ user }: Prop) {
             return (
               <div>
                 <div className="font-bold lg:text-[18px] text-[14px] my-2 flex justify-between">
-                {company?.name} - {interview.date} 
+                {company?.name} - {interview.date}  
                 <button>
-                <FontAwesomeIcon icon={faDeleteLeft} className="w-[20px] mx-1" style={{ color: "red" }} width={20}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faTrashAlt} className="w-[20px] mx-1" style={{ color: "red" }} width={20}></FontAwesomeIcon>
                 </button>
                 
                 </div>
