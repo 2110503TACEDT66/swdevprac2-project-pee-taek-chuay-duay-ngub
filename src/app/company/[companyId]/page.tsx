@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import { useAlert } from "@/components/alert/Context";
 
 interface Job {
   _id: string;
@@ -18,6 +19,10 @@ interface Job {
   id: string;
 }
 
+interface BookedResponse {
+  message: string;
+}
+
 async function getCompany(companyId: string): Promise<Job> {
   const company = await fetch(`/api/company/${companyId}`);
   const companyData = await company.json() as {
@@ -27,7 +32,7 @@ async function getCompany(companyId: string): Promise<Job> {
   return companyData.data as Job;
 }
 
-async function submitBooking(bookTime: Date, companyId: string) {
+async function submitBooking(bookTime: Date, companyId: string): Promise<Response> {
   const booking = await fetch(`/api/booking`, {
     method: 'POST',
     headers: {
@@ -38,13 +43,11 @@ async function submitBooking(bookTime: Date, companyId: string) {
       bookTime: bookTime,
     }),
   });
-  const bookingData = await booking.json();
-  console.log(bookingData);
+  return booking as Response;
 }
 
 export default function Home({ params }: { params: { companyId: string } }) {
-  // const company = mockJobs.find((job) => job._id === params.companyId);
-  // const company = getCompany(params.companyId);
+  const alert = useAlert();
   const [company, setCompany] = useState<Job | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
@@ -103,9 +106,18 @@ export default function Home({ params }: { params: { companyId: string } }) {
                     />
                   </div>
                 </div>
-                <button className="mt-5 flex items-center justify-center bg-primary text-white px-[1rem] text-[18px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none" onClick={() => {
+                <button className="mt-5 flex items-center justify-center bg-primary text-white px-[1rem] text-[18px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none" onClick={async () => {
                   if (selectedDate) {
-                    submitBooking(selectedDate, company.id);
+                    const result = await submitBooking(selectedDate, company.id);
+                    const msg = await result.json() as BookedResponse;
+                    if (!result.ok) {
+                      alert.showAlert({
+                        message: `ไม่สามารถจองได้ ${msg.message}`, mode: 'error'
+                      });
+                    }
+                    else {
+                      alert.showAlert({ message: 'จองสำเร็จ', mode: 'success' });
+                    }
                   }
                 }
                 }>

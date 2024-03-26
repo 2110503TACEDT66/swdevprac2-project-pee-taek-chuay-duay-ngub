@@ -14,4 +14,21 @@ declare module "next-auth" {
       role: string
     }
   }
+
+  // returned user after login
+  interface User {
+    id: string
+    name: string
+    email: string
+    telephoneNumber: string
+    role: string
+  }
+
+  interface token {
+    id: string
+    name: string
+    email: string
+    telephoneNumber: string
+    role: string
+  }
 }

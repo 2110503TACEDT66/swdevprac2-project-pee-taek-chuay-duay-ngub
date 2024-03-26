@@ -1,4 +1,5 @@
 import { callInternAPI, InternApiRoutes } from "@/utils/routing";
+import authOptions, { getServerAuthSession } from "@/server/auth";
 import { getServerSession } from "next-auth";
 
 interface ClientRequestInput {
@@ -8,8 +9,10 @@ interface ClientRequestInput {
 
 export async function POST(request: Request) : Promise<Response> {
     // check if have session
-    const session = await getServerSession();
-    if (!session) {
+    const session = await getServerSession(
+        authOptions
+    )
+    if (!session?.user) {
         return new Response(JSON.stringify({ message: 'Unauthorized' }), {
             headers: {
                 'Content-Type': 'application/json',
@@ -19,6 +22,9 @@ export async function POST(request: Request) : Promise<Response> {
         })
     }
     try {
+        console.log("shit as fuck:",
+            session
+        )
         const clientRequest = await request.json() as ClientRequestInput
         const result = await callInternAPI(
             InternApiRoutes.BookInterview,

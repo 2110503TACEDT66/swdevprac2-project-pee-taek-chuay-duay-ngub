@@ -1,6 +1,6 @@
 import { type NextAuthOptions, getServerSession } from "next-auth";
 import { encode, decode } from "next-auth/jwt";
-import { type GetServerSidePropsContext } from "next/types";
+import { NextApiRequest, NextApiResponse, type GetServerSidePropsContext } from "next/types";
 import { env } from "@/env";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import Credentials from "next-auth/providers/credentials";
@@ -8,7 +8,7 @@ import { callInternAPI, InternApiRoutes } from "@/utils/routing";
 // mongo adapter
 type Roles = 'user' | 'admin' | 'company';
 type ReturnedUserData = {
-    _id: string;
+    id: string;
     name: string;
     telephoneNumber: string;
     email: string;
@@ -46,7 +46,7 @@ const authOptions: NextAuthOptions = {
                 }
                 console.log('Sucessful login:', result);
                 return {
-                    id: result.user._id,
+                    id: result.user.id,
                     name: result.user.name,
                     email: result.user.email,
                     telephoneNumber: result.user.telephoneNumber,
@@ -68,6 +68,35 @@ const authOptions: NextAuthOptions = {
             return decode({ secret, token });
         }
     },
+    callbacks: {
+        async jwt({ token, user }) {
+            console.log('---- jwt ------');
+            if (user) {
+                token.id = user.id;
+                token.name = user.name;
+                token.email = user.email;
+                token.telephoneNumber = user.telephoneNumber;
+                token.role = user.role;
+            }
+            console.log('token:', token);
+            console.log('user:', user);
+            return token;
+        },
+        async session({ session, token }) {
+            console.log('---- session ------');
+            console.log('session old:', session);
+            console.log('token:', token);
+            if (session.user) {
+                session.user.id = token.id as string;
+                session.user.name = token.name as string;
+                session.user.email = token.email as string;
+                session.user.telephoneNumber = token.telephoneNumber as string;
+                session.user.role = token.role as string;
+            }
+            console.log('session new:', session);
+            return session;
+        }
+    },
     pages: {
         error: "/",
         signIn: "/auth/signin",
@@ -80,11 +109,9 @@ const authOptions: NextAuthOptions = {
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = (ctx: {
-    req: GetServerSidePropsContext["req"];
-    res: GetServerSidePropsContext["res"];
-}) => {
-    return getServerSession(ctx.req, ctx.res, authOptions);
-};
+// Use it in server contexts
+export function getServerAuthSession(...args: [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]] | [NextApiRequest, NextApiResponse] | []) {
+    return getServerSession(...args, authOptions)
+  }
 
 export default authOptions;
