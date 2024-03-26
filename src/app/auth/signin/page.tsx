@@ -21,7 +21,6 @@ export default function Signup() {
     });
   };
 
-  const searchParams = new URLSearchParams(window.location.search);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signIn("credentials", {
