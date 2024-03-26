@@ -22,22 +22,6 @@ export default function Signup() {
   };
 
   const searchParams = new URLSearchParams(window.location.search);
-  // check url if user successfully signed up
-  const validateSignup = () => {
-    const url = window.location.href;
-    const grabError = searchParams.get("error");
-    // if ?error is in the url, show error alert
-    if (grabError) {
-      alert.showAlert(
-        {
-          message: "Error: " + grabError,
-          mode: "error"
-        }
-      )
-    }
-  }
-
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signIn("credentials", {
