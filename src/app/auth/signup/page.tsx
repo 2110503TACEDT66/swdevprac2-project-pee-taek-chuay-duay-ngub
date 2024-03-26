@@ -47,8 +47,20 @@ export default function Signup() {
                     telephoneNumber: telephoneNumber,
                     password: password
                 }),
-            }).then((response) => {
+            }).then(async (response) => {
                 if (response.ok) {
+                    // do signin
+                    await signIn('credentials', {
+                        email: email,
+                        password: password,
+                        redirect: false,
+                    }).then((result) => {
+                        if (!result?.ok) {
+                            return
+                        } else {
+                            window.location.href = '/explore';
+                        }
+                    });
                     return response.json();
                 }
                 return response.json().then((data) => {
@@ -66,18 +78,6 @@ export default function Signup() {
                 name: Firstname + " " + Lastname,
                 telephoneNumber: telephoneNumber,
                 password: password
-            });
-            // do signin
-            const result = signIn('credentials', {
-                email: email,
-                password: password,
-                redirect: false,
-            }).then((result) => {
-                if (!result?.ok) {
-                    return
-                } else {
-                    window.location.href = '/explore';
-                }
             });
         }
 
