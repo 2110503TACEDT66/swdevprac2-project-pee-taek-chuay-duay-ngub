@@ -4,7 +4,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 interface Job {
   _id: string;
@@ -80,7 +80,7 @@ const mockJobs: Job[] = [
     id: "2",
   },
   {
-    _id: "6",
+    _id: "66016ec2aa09f210ac264148",
     name: "Job 6",
     address: "456 Elm Street",
     website: "www.example.com/job2",
@@ -93,11 +93,12 @@ const mockJobs: Job[] = [
   },
 ];
 
+
 export default function Home({ params }: { params: { companyId: string } }) {
   const company = mockJobs.find((job) => job._id === params.companyId);
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const handleDateChange = (date:any) => {
+  const handleDateChange = (date: any) => {
     setSelectedDate(date);
   }
   return (
@@ -107,9 +108,9 @@ export default function Home({ params }: { params: { companyId: string } }) {
         <div className="flex justify-around mx-auto p-5 py-[50px]">
           <div>
             <div className="mb-2">
-              <Link  href={'/explore'} className="mb-[20px] text-[20px]">
-              <FontAwesomeIcon icon={faArrowLeftLong} className="fas fa-check" style={{ color: "black" }}
-                  ></FontAwesomeIcon> ย้อนกลับ
+              <Link href={'/explore'} className="mb-[20px] text-[20px]">
+                <FontAwesomeIcon icon={faArrowLeftLong} className="fas fa-check" style={{ color: "black" }}
+                ></FontAwesomeIcon> ย้อนกลับ
               </Link>
             </div>
             <img className="rounded" src={company?.image} alt="company image" width={600} height={800} />

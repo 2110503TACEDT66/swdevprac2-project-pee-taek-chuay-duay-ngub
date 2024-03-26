@@ -1,5 +1,3 @@
-// pages/detail/[id].js (or [id].tsx)
-
 import { useRouter } from 'next/router';
 
 const Detail = () => {
