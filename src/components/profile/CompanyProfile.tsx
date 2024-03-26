@@ -8,9 +8,12 @@ type Prop = {
   company: Company;
 }
 
+interface InterviewXtend extends Interview {
+  user_name: string
+}
 
 export default function CompanyProfile({ company }: Prop) {
-  const [interviews, setInterviews] = useState<Interview[]>([]);
+  const [interviews, setInterviews] = useState<InterviewXtend[]>([]);
   const [user_interviewed_name, setInterviewed_name] = useState<string[]>([]);
 
   useEffect(() => {
@@ -21,24 +24,25 @@ export default function CompanyProfile({ company }: Prop) {
           'Content-Type': 'application/json',
         },
       }).then((res) => res.json());
-      console.log('Interviews Shit:', interviews);
-      setInterviews(interviews.data['interviews'] as Interview[]);
-      // clear company_name
-      setInterviewed_name([])
-      interviews?.data['interviews'].forEach((interview: Interview, index: number) => {
-        getUser(interview.user).then((user) => {
-          const user_name = user.name;
-          setInterviewed_name([
-            ...user_interviewed_name,
-            user_name
-          ])
-        });
-      });
+      const IntervData = await Promise.all((interviews?.data['interviews'] as Interview[])?.map(
+        async (intev, idx) => {
+          const uname = await getUser(intev.user).then((user) => {
+            return user.name
+          })
+          return {
+            _id: intev._id,
+            company: intev.company,
+            date: intev.date,
+            user: intev.user,
+            user_name: uname
+          } as InterviewXtend
+        }
+      ));
+      console.log('Interviews Shit:', IntervData);
+      setInterviews(IntervData);
     };
-
     fetchInterviews();
-  }, [company.id]);
-
+  }, [company.id])
 
   // Function to update interview date
   const updateInterviewDate = (interviewId: string, newDate: string) => {
@@ -73,7 +77,7 @@ export default function CompanyProfile({ company }: Prop) {
         </div>
         <div className="overflow-y-auto h-64 p-5">
           <h1 className="text-[24px] font-bold border-b-2 border-black mb-5 pb-3">รายการจอง</h1>
-          {interviews?.map((interview: Interview, idx: number) => {
+          {interviews?.map((interview, idx: number) => {
             const formattedDate = new Date(interview.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -84,7 +88,7 @@ export default function CompanyProfile({ company }: Prop) {
                 <div className="font-bold lg:text-[18px] text-[14px] my-2 flex justify-between">
                   {/* Company and interview date */}
                   <span>
-                    {user_interviewed_name[idx] ?? 'User Name not found'}
+                    {interview.user_name ?? 'User Name not found'}
                     {/* Render input field for date */}
                     <input
                       type="text"
