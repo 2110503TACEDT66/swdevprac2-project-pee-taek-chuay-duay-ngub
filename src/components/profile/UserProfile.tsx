@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { User, Interview, mockInterview, mockCompany } from "@/mock_data/mocks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faPencil, faSave } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faPencil,faSave } from "@fortawesome/free-solid-svg-icons";
 
 type Prop = {
   user: User;
@@ -41,42 +41,36 @@ export default function UserProfile({ user }: Prop) {
         <div>{user.telephoneNumber}</div>
         </div>
         <div className="overflow-y-auto h-64 p-5">
-  <h1 className="text-[24px] font-bold border-b-2 border-black mb-5 pb-3">รายการจอง</h1>
-  {interviews.map((interview: Interview) => {
-    const company = mockCompany.find((company) => company._id === interview.company);
-    const formattedDate = new Date(interview.date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-    return (
-      <div key={interview._id}>
-        <div className="font-bold lg:text-[18px] text-[14px] my-2 flex justify-between">
-          {/* Company and interview date */}
-          <span>
-            {company?.name} - 
-            {/* Render input field for date */}
-            <input
-              type="text"
-              value={formattedDate}
-              onChange={(e) => updateInterviewDate(interview._id, e.target.value)}
-              className="border-2 border-gray-300 rounded-md px-2 py-1"
-            />
-          </span>
-          {/* Edit button */}
-          <button>
-            <FontAwesomeIcon icon={faSave} className="w-[20px] mx-1" style={{ color: 'grey' }} />
-          </button>
-          {/* Delete button */}
-          <button>
-            <FontAwesomeIcon icon={faTrashAlt} className="w-[20px] mx-1" style={{ color: 'red' }} />
-          </button>
+          <h1 className="text-[24px] font-bold border-b-2 border-black mb-5 pb-3">รายการจอง</h1>
+          {interviews.map((interview: Interview) => {
+            const company = mockCompany.find((company) => company._id === interview.company);
+            return (
+              <div key={interview._id}>
+                <div className="font-bold lg:text-[18px] text-[14px] my-2 flex justify-between">
+                  {/* Company and interview date */}
+                  <span>
+                    {company?.name} - 
+                    {/* Render input field for date */}
+                    <input
+                      type="text"
+                      value={interview.date}
+                      onChange={(e) => updateInterviewDate(interview._id, e.target.value)}
+                      className="border-2 border-gray-300 rounded-md px-2 py-1"
+                    />
+                  </span>
+                  {/* Edit button */}
+                  <button>
+                    <FontAwesomeIcon icon={faSave} className="w-[20px] mx-1" style={{ color: 'grey' }} />
+                  </button>
+                  {/* Delete button */}
+                  <button>
+                    <FontAwesomeIcon icon={faTrashAlt} className="w-[20px] mx-1" style={{ color: 'red' }} />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      </div>
-    );
-  })}
-</div>
-
       </div>
     </div>
   );
