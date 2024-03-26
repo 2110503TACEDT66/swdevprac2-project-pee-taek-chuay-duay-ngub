@@ -91,6 +91,10 @@ export async function callInternAPIById<T>(api: InternApiRoutes, method: Methods
         method: method,
     });
 
+    // allow PUT and POST to have a body
+    if ((method === "PUT" || method === "POST") && body) {
+        fetchbody.body = JSON.stringify(body);
+    }
     const res = await fetch(url, fetchbody);
     if (!res.ok) {
         // contrust error message
