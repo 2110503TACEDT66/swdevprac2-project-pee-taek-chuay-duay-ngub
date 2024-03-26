@@ -74,11 +74,11 @@ export default function CompanyProfile({ company }: Prop) {
         <div className="overflow-y-auto h-64 p-5">
           <h1 className="text-[24px] font-bold border-b-2 border-black mb-5 pb-3">รายการจอง</h1>
           {interviews?.map((interview: Interview, idx: number) => {
-            const formattedDate = new Date(interview.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            });
+            // const formattedDate = new Date(interview.date).toLocaleDateString('en-US', {
+            //   year: 'numeric',
+            //   month: 'long',
+            //   day: 'numeric',
+            // });
             return (
               <div key={interview._id}>
                 <div className="font-bold lg:text-[18px] text-[14px] my-2 flex justify-between">
@@ -88,7 +88,7 @@ export default function CompanyProfile({ company }: Prop) {
                     {/* Render input field for date */}
                     <input
                       type="text"
-                      value={formattedDate}
+                      value={interview.date}
                       onChange={(e) => updateInterviewDate(interview._id, e.target.value)}
                       className="border-2 border-gray-300 rounded-md px-2 py-1"
                     />
