@@ -13,13 +13,13 @@ export default function CompanyProfile({ company }: Prop) {
 
   useEffect(() => {
     const fetchInterviews = async () => {
-      const interviews = await fetch(`/api/booking/`, {
+      const interviews = await fetch(`/api/company/${company._id}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       }).then((res) => res.json());
-      setInterviews(interviews.data as Interview[]);
+      setInterviews(interviews.data['interviews'] as Interview[]);
     };
     fetchInterviews();
   }, [company._id]);
