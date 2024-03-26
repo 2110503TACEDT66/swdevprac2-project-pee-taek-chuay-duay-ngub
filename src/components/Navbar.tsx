@@ -108,6 +108,7 @@ export default function Navbar() {
             setProfileMenuOpen={setProfileMenuOpen}
             profileMenuOpen={profileMenuOpen}
             username={session.data.user.name ?? ""}
+            role={session.data.user.role ?? ""}
           />
           <DropdownSelector
             openState={profileMenuOpen}

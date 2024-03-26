@@ -1,4 +1,4 @@
-import { callInternAPI, InternApiRoutes } from "@/utils/routing";
+import { callInternAPI, callInternAPIById, InternApiRoutes } from "@/utils/routing";
 import authOptions, { getServerAuthSession } from "@/server/auth";
 import { getServerSession } from "next-auth";
 
@@ -34,6 +34,48 @@ export async function POST(request: Request) : Promise<Response> {
                 user: session.user.id,
                 date: clientRequest.bookTime,
             },
+        )
+        return new Response(JSON.stringify(result), {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            status: 200,
+            statusText: 'OK',
+        })
+    }
+    catch (e) {
+        // unsuccessful registration status, log error
+        const error = e as Error
+        console.error('Error:', error)
+        return new Response(JSON.stringify({ message: error.message }), {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            status: 400,
+            statusText: 'Bad Request',
+        })
+    }
+}
+
+export async function GET(request: Request) : Promise<Response> {
+    // check if have session
+    const session = await getServerSession(
+        authOptions
+    )
+    if (!session?.user) {
+        return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            status: 401,
+            statusText: 'Unauthorized',
+        })
+    }
+    try {
+        const result = await callInternAPIById(
+            InternApiRoutes.GetInterviewById,
+            'GET',
+            session.user.id,
         )
         return new Response(JSON.stringify(result), {
             headers: {

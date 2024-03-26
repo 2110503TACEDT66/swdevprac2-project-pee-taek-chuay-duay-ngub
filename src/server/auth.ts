@@ -12,7 +12,8 @@ type ReturnedUserData = {
     name: string;
     telephoneNumber: string;
     email: string;
-    role: string;
+    role: Roles;
+    company?: string;
 }
 
 interface Response {
@@ -51,6 +52,7 @@ const authOptions: NextAuthOptions = {
                     email: result.user.email,
                     telephoneNumber: result.user.telephoneNumber,
                     role: result.user.role,
+                    company: result.user.company,
                 }
             }
         }),
@@ -77,6 +79,7 @@ const authOptions: NextAuthOptions = {
                 token.email = user.email;
                 token.telephoneNumber = user.telephoneNumber;
                 token.role = user.role;
+                token.company = user.company;
             }
             console.log('token:', token);
             console.log('user:', user);
@@ -92,6 +95,7 @@ const authOptions: NextAuthOptions = {
                 session.user.email = token.email as string;
                 session.user.telephoneNumber = token.telephoneNumber as string;
                 session.user.role = token.role as string;
+                session.user.company = token.company as string | undefined;
             }
             console.log('session new:', session);
             return session;

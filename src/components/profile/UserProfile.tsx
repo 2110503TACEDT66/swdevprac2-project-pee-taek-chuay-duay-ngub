@@ -33,6 +33,11 @@ export default function UserProfile({ user }: Prop) {
             <div className="text-white text-[1.5rem]">{user.name}</div>
             <div className="text-white text-[1rem]">{user.role}</div>
           </div>
+          <div className="mt-[2rem] mx-auto h-[2px] bg-white"></div>
+          <div className="mt-[2rem] font-bold">Email</div>
+          <div>{user.email}</div>
+          <div className="mt-[2rem] font-bold">Telephone Number</div>
+          <div>{user.telephoneNumber}</div>
         </div>
         <div className="mt-[2rem] mx-auto h-[2px] bg-white"></div>
         <div className="mt-[2rem] font-bold">Email</div>
