@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { useAlert } from "@/components/alert/Context";
+import Spinner from "@/components/loading/spinner";
 
 interface Job {
   _id: string;
@@ -129,9 +130,7 @@ export default function Home({ params }: { params: { companyId: string } }) {
 
         ) : (
           // spinner
-          <div className="flex justify-center items-center h-[100px]">
-            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
-          </div>
+          <Spinner />
         )
       }
     </div >
