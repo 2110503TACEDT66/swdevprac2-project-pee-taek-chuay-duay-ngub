@@ -1,4 +1,5 @@
 'use client'
+import { useAlert } from "@/components/alert/Context";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -10,6 +11,7 @@ export default function Signup() {
   });
 
   const { email, password } = formData;
+  const alert = useAlert();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -19,29 +21,69 @@ export default function Signup() {
     });
   };
 
+  const searchParams = new URLSearchParams(window.location.search);
+  // check url if user successfully signed up
+  const validateSignup = () => {
+    const url = window.location.href;
+    const grabError = searchParams.get("error");
+    // if ?error is in the url, show error alert
+    if (grabError) {
+      alert.showAlert(
+        {
+          message: "Error: " + grabError,
+          mode: "error"
+        }
+      )
+    }
+  }
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn("credentials", {
+    await signIn("credentials", {
       email: email,
       password: password,
-      callbackUrl: "/",
-    });
+      redirect: false,
+    }).then((res) => {
+      if (res?.error) {
+        alert.showAlert(
+          {
+            message: "Error: " + res.error,
+            mode: "error"
+          }
+        )
+      } else {
+        alert.showAlert(
+          {
+            message: "Successfully signed in",
+            mode: "success"
+          }
+        )
+      }
+    }
+    );
+
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100 text-primary">
       {session.data?.user?.email ? (
-        <div className="p-8 bg-white rounded-lg shadow-md">
-          <h1 className="text-2xl font-semibold text-center my-4">
-            {session.data.user.email} is already signed in
-          </h1>
+        <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center w-1/2">
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-2xl font-semibold text-center my-4">
+              {session.data.user.email}
+            </h1>
+            <h2 className="text-black text-lg">
+              is already signed in
+            </h2>
+          </div>
           <button
             onClick={() =>
               signOut({
                 callbackUrl: "/",
               })
             }
-            className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="w-full p-2 bg-primary text-white rounded-md mt-4"
           >
             Sign Out
           </button>
