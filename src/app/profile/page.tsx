@@ -6,15 +6,6 @@ import { Company } from "@/mock_data/mocks";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-interface User {
-    _id: string;
-    name: string;
-    email: string;
-    telephoneNumber: string;
-    role: string;
-    company?: string; // company id, if user is a company user
-}
-
 export default function Home({ params }: { params: { id: string } }) {
     const session = useSession();
     const [company, setCompany] = useState<Company | undefined>(undefined);

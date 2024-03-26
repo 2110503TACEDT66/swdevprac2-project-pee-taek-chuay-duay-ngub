@@ -72,6 +72,7 @@ export async function GET(request: Request) : Promise<Response> {
         })
     }
     try {
+        console.log("---- booking get ----")
         const result = await callInternAPIById(
             InternApiRoutes.GetInterviewById,
             'GET',

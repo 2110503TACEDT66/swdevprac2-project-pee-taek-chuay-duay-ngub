@@ -2,14 +2,28 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPencil, faSave } from "@fortawesome/free-solid-svg-icons";
 import { User, Interview, mockUser, mockCompany, mockInterview, Company } from "@/mock_data/mocks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 type Prop = {
   company: Company;
-};
+}
+
 
 export default function CompanyProfile({ company }: Prop) {
-  const interview: Interview[] = mockInterview.filter((interview) => interview.company === company._id);
-  const [interviews, setInterviews] = useState<Interview[]>(mockInterview);
+  const [interviews, setInterviews] = useState<Interview[]>([]);
+
+  useEffect(() => {
+    const fetchInterviews = async () => {
+      const interviews = await fetch(`/api/booking/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((res) => res.json());
+      setInterviews(interviews.data as Interview[]);
+    };
+    fetchInterviews();
+  }, [company._id]);
+
 
   // Function to update interview date
   const updateInterviewDate = (interviewId: string, newDate: string) => {
@@ -44,7 +58,7 @@ export default function CompanyProfile({ company }: Prop) {
         </div>
         <div className="overflow-y-auto h-64 p-5">
           <h1 className="text-[24px] font-bold border-b-2 border-black mb-5 pb-3">รายการจอง</h1>
-          {interviews.map((interview: Interview) => {
+          {interviews?.map((interview: Interview) => {
             const company = mockCompany.find((company) => company._id === interview.company);
             const formattedDate = new Date(interview.date).toLocaleDateString('en-US', {
               year: 'numeric',
