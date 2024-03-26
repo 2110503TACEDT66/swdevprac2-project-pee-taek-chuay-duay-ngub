@@ -77,21 +77,12 @@ export default function CompanyProfile({ company }: Prop) {
         </div>
         <div className="overflow-y-auto h-64 p-5">
           <h1 className="text-[24px] font-bold border-b-2 border-black mb-5 pb-3">รายการจอง</h1>
-<<<<<<< HEAD
-          {interviews?.map((interview, idx: number) => {
-            const formattedDate = new Date(interview.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            });
-=======
-          {interviews?.map((interview: Interview, idx: number) => {
+          {interviews?.map((interview: InterviewXtend, idx: number) => {
             // const formattedDate = new Date(interview.date).toLocaleDateString('en-US', {
             //   year: 'numeric',
             //   month: 'long',
             //   day: 'numeric',
             // });
->>>>>>> refs/remotes/origin/main
             return (
               <div key={interview._id}>
                 <div className="font-bold lg:text-[18px] text-[14px] my-2 flex justify-between">
