@@ -1,5 +1,5 @@
 import { callInternAPI, callInternAPIById, InternApiRoutes } from "@/utils/routing"
-
+export const dynamic = 'force-dynamic';
 export async function GET(
     request: Request,
     { params }: { params: { id: string } }

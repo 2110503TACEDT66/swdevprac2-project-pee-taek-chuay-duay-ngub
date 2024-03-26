@@ -1,7 +1,7 @@
 import { env } from "@/env";
 import { RegisterUserResponse } from "@/types/routing";
 import { callInternAPI, InternApiRoutes } from "@/utils/routing";
-
+export const dynamic = 'force-dynamic';
 interface ClientRequestInput {
     name: string;
     telephoneNumber: string;
