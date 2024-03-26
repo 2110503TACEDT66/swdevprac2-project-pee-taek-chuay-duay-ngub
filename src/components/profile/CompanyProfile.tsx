@@ -8,7 +8,7 @@ export default function CompanyProfile({ company }: Prop) {
   const interview: Interview[] = mockInterview.filter((interview) => interview.company === company._id);
 
   return (
-    <div className="flex shadow-xl max-w-2xl min-h-[80vh] mx-auto rounded-[10px] overflow-hidden">
+    <div className="flex shadow-xl w-[80vw] min-h-[80vh] mx-auto rounded-[10px] overflow-hidden">
       <div className="p-[1.5rem] bg-primary w-[45%] text-white text-[1.2rem]">
         <div className="flex gap-[1rem] items-center">
           <div className="w-[74px] h-[74px] rounded-full bg-gray-300"></div>
@@ -24,7 +24,7 @@ export default function CompanyProfile({ company }: Prop) {
         <div>{company.website}</div>
         <div className="mt-[2rem]">Company Address</div>
         <div>{company.address}</div>
-        <div className="mt-[2rem]">Company Telephone Number</div>
+        <div className="mt-[2rem]">Telephone Number</div>
         <div>{company.telephoneNumber}</div>
       </div>
       <div>
