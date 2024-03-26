@@ -13,7 +13,7 @@ export default function CompanyProfile({ company }: Prop) {
 
   useEffect(() => {
     const fetchInterviews = async () => {
-      const interviews = await fetch(`/api/company/${company._id}/`, {
+      const interviews = await fetch(`/api/company/${company.id}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export default function CompanyProfile({ company }: Prop) {
       setInterviews(interviews.data['interviews'] as Interview[]);
     };
     fetchInterviews();
-  }, [company._id]);
+  }, [company.id]);
 
 
   // Function to update interview date
@@ -60,7 +60,7 @@ export default function CompanyProfile({ company }: Prop) {
         <div className="overflow-y-auto h-64 p-5">
           <h1 className="text-[24px] font-bold border-b-2 border-black mb-5 pb-3">รายการจอง</h1>
           {interviews?.map((interview: Interview) => {
-            const company = mockCompany.find((company) => company._id === interview.company);
+            const company = mockCompany.find((company) => company.id === interview.company);
             const formattedDate = new Date(interview.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',

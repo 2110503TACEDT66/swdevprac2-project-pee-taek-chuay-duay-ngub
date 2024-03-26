@@ -7,30 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { useAlert } from "@/components/alert/Context";
 import Spinner from "@/components/loading/spinner";
+import { getCompany } from "@/utils/getStuff";
+import { Company } from "@/mock_data/mocks";
 
-interface Job {
-  _id: string;
-  name: string;
-  address: string;
-  website: string;
-  image: string;
-  description: string;
-  telephoneNumber: string;
-  __v: number;
-  id: string;
-}
 
 interface BookedResponse {
   message: string;
-}
-
-async function getCompany(companyId: string): Promise<Job> {
-  const company = await fetch(`/api/company/${companyId}`);
-  const companyData = await company.json() as {
-    success: boolean;
-    data: Job;
-  }
-  return companyData.data as Job;
 }
 
 async function submitBooking(bookTime: Date, companyId: string): Promise<Response> {
@@ -49,7 +31,7 @@ async function submitBooking(bookTime: Date, companyId: string): Promise<Respons
 
 export default function Home({ params }: { params: { companyId: string } }) {
   const alert = useAlert();
-  const [company, setCompany] = useState<Job | null>(null);
+  const [company, setCompany] = useState<Company | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleDateChange = (date: any) => {
