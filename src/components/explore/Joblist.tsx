@@ -66,8 +66,8 @@ const JobList = () => {
                                 {filteredJobs?.map(job => (
                                     <Link href={(
                                         session.data?.user?.role === 'admin' ? '/profile/' : '/company/'
-                                    ) + String(job._id)}>
-                                        <div key={job._id} className="max-w-sm overflow-hidden shadow-lg p-5 rounded">
+                                    ) + String(job._id)} key={job._id}>
+                                        <div className="max-w-sm overflow-hidden shadow-lg p-5 rounded">
                                             <div className="px-6 py-4">
                                                 <div className="font-bold text-xl mb-2">{job.name}</div>
                                                 <p className="text-gray-700 text-base">{job.description}</p>
