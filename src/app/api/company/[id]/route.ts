@@ -20,3 +20,24 @@ export async function GET(
         return Response.json({ error: error.message }, { status: 500 })
     }
 }
+
+
+export async function DELETE(
+    request: Request,
+    { params }: { params: { id: string } }
+) {
+    try {
+        const id = params.id
+        console.log('DELETE Company by ID:', id)
+
+        const response = await callInternAPIById(
+            InternApiRoutes.DeleteCompanyById,
+            'DELETE',
+            id
+        )
+        console.log('Company:', response)
+        return Response.json(response ?? { error: 'Company not found' })
+    } catch (error:any) {
+        return Response.json({ error: error.message }, { status: 500 })
+    }
+}
