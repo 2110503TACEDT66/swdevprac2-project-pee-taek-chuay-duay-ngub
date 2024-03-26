@@ -38,7 +38,6 @@ export const mockUser: User[] = [
     email: "user2@gmail.com",
     telephoneNumber: "0123456789",
     role: "admin",
-    company: "1",
   },
   {
     _id: "3",
@@ -46,6 +45,7 @@ export const mockUser: User[] = [
     email: "user3@gmail.com",
     telephoneNumber: "0123456789",
     role: "company",
+    company: "1",
   },
 ];
 

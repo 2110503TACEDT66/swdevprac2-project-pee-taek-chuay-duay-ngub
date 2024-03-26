@@ -27,11 +27,26 @@ async function getCompany(companyId: string): Promise<Job> {
   return companyData.data as Job;
 }
 
+async function submitBooking(bookTime: Date, companyId: string) {
+  const booking = await fetch(`/api/booking`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      companyId: companyId,
+      bookTime: bookTime,
+    }),
+  });
+  const bookingData = await booking.json();
+  console.log(bookingData);
+}
+
 export default function Home({ params }: { params: { companyId: string } }) {
   // const company = mockJobs.find((job) => job._id === params.companyId);
   // const company = getCompany(params.companyId);
   const [company, setCompany] = useState<Job | null>(null);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleDateChange = (date: any) => {
     setSelectedDate(date);
@@ -88,7 +103,12 @@ export default function Home({ params }: { params: { companyId: string } }) {
                     />
                   </div>
                 </div>
-                <button className="mt-5 flex items-center justify-center bg-primary text-white px-[1rem] text-[18px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none">
+                <button className="mt-5 flex items-center justify-center bg-primary text-white px-[1rem] text-[18px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none" onClick={() => {
+                  if (selectedDate) {
+                    submitBooking(selectedDate, company.id);
+                  }
+                }
+                }>
                   ยืนยันการจอง
                 </button>
               </div>
@@ -102,6 +122,6 @@ export default function Home({ params }: { params: { companyId: string } }) {
           </div>
         )
       }
-    </div>
+    </div >
   );
 }
