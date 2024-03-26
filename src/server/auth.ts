@@ -3,7 +3,6 @@ import { encode, decode } from "next-auth/jwt";
 import { type GetServerSidePropsContext } from "next/types";
 import { env } from "@/env";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "./db/mongo_db";
 import Credentials from "next-auth/providers/credentials";
 import { callInternAPI, InternApiRoutes } from "@/utils/routing";
 // mongo adapter
@@ -22,9 +21,6 @@ interface Response {
 }
 
 const authOptions: NextAuthOptions = {
-    adapter: MongoDBAdapter(clientPromise, {
-        databaseName: env.MONGODB_URI,
-    }),
     providers: [
         Credentials({
             name: "Credentials",
@@ -48,10 +44,12 @@ const authOptions: NextAuthOptions = {
                 if (!result.success || !result.user) {
                     return null;
                 }
+                console.log('Sucessful login:', result);
                 return {
                     id: result.user._id,
                     name: result.user.name,
                     email: result.user.email,
+                    telephoneNumber: result.user.telephoneNumber,
                     role: result.user.role,
                 }
             }

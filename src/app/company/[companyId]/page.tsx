@@ -35,7 +35,7 @@ async function submitBooking(bookTime: Date, companyId: string) {
     },
     body: JSON.stringify({
       companyId: companyId,
-      date: bookTime,
+      bookTime: bookTime,
     }),
   });
   const bookingData = await booking.json();
