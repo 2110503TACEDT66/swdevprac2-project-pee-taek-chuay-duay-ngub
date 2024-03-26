@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { Company, Interview, RegisterUserRequest, RegisterUserResponse } from "@/types/routing";
+import { User } from "next-auth";
 
 // Enum for API endpoints
 export enum InternApiRoutes {
@@ -10,6 +11,7 @@ export enum InternApiRoutes {
     PostRegisterUser = "/auth/register",
     PostLoginUser = "/auth/login",
     // by ID
+    GetUserById = "/auth/user/{id}",
     GetCompanyById = "/companies/{id}",
     UpdateCompanyById = "/companies/{id}",
     DeleteCompanyById = "/companies/{id}",
@@ -75,6 +77,7 @@ export function callInternAPIById<T = Company>(api: InternApiRoutes.UpdateCompan
 export function callInternAPIById<T = Company>(api: InternApiRoutes.DeleteCompanyById, method: "DELETE", id: string): Promise<T>;
 export function callInternAPIById<T = Interview>(api: InternApiRoutes.UpdateInterviewById, method: "PUT", id: string, body: any): Promise<T>;
 export function callInternAPIById<T = Interview>(api: InternApiRoutes.DeleteInterviewById, method: "DELETE", id: string): Promise<T>;
+export function callInternAPIById<T = User>(api: InternApiRoutes.GetUserById, method: "GET", id: string): Promise<T>;
 
 export async function callInternAPIById<T>(api: InternApiRoutes, method: Methods, id?: any, body?: any): Promise<T> {
     const url = `${env.INTERN_PORTAL_BACKEND_URL}${api}`.replace("{id}", id);

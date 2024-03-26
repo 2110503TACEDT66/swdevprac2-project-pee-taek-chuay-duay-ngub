@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPencil, faSave } from "@fortawesome/free-solid-svg-icons";
 import { User, Interview, mockUser, mockCompany, mockInterview, Company } from "@/mock_data/mocks";
 import { useEffect, useState } from "react";
+import { getUser } from "@/utils/getStuff";
 type Prop = {
   company: Company;
 }
@@ -10,6 +11,7 @@ type Prop = {
 
 export default function CompanyProfile({ company }: Prop) {
   const [interviews, setInterviews] = useState<Interview[]>([]);
+  const [user_interviewed_name, setInterviewed_name] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchInterviews = async () => {
@@ -21,6 +23,17 @@ export default function CompanyProfile({ company }: Prop) {
       }).then((res) => res.json());
       console.log('Interviews Shit:', interviews);
       setInterviews(interviews.data['interviews'] as Interview[]);
+      // clear company_name
+      setInterviewed_name([])
+      interviews?.data['interviews'].forEach((interview: Interview, index: number) => {
+        getUser(interview.user).then((user) => {
+          const user_name = user.name;
+          setInterviewed_name([
+            ...user_interviewed_name,
+            user_name
+          ])
+        });
+      });
     };
     fetchInterviews();
   }, [company.id]);
@@ -59,8 +72,7 @@ export default function CompanyProfile({ company }: Prop) {
         </div>
         <div className="overflow-y-auto h-64 p-5">
           <h1 className="text-[24px] font-bold border-b-2 border-black mb-5 pb-3">รายการจอง</h1>
-          {interviews?.map((interview: Interview) => {
-            const company = mockCompany.find((company) => company.id === interview.company);
+          {interviews?.map((interview: Interview, idx: number) => {
             const formattedDate = new Date(interview.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -71,7 +83,7 @@ export default function CompanyProfile({ company }: Prop) {
                 <div className="font-bold lg:text-[18px] text-[14px] my-2 flex justify-between">
                   {/* Company and interview date */}
                   <span>
-                    {company?.name} -
+                    {user_interviewed_name[idx] ?? 'User Name not found'}
                     {/* Render input field for date */}
                     <input
                       type="text"
