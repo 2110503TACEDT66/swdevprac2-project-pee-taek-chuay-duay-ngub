@@ -71,12 +71,12 @@ export async function callInternAPI<T>(api: InternApiRoutes|string, method: Meth
 // By Id Caller
 export function callInternAPIById<T = Company>(api: InternApiRoutes.GetCompanyById, method: "GET", id: string): Promise<T>;
 export function callInternAPIById<T = Interview>(api: InternApiRoutes.GetInterviewById, method: "GET", id: string): Promise<T>;
-export function callInternAPIById<T = Company>(api: InternApiRoutes.UpdateCompanyById, method: "PUT", id: string): Promise<T>;
+export function callInternAPIById<T = Company>(api: InternApiRoutes.UpdateCompanyById, method: "PUT", id: string, body: any): Promise<T>;
 export function callInternAPIById<T = Company>(api: InternApiRoutes.DeleteCompanyById, method: "DELETE", id: string): Promise<T>;
-export function callInternAPIById<T = Interview>(api: InternApiRoutes.UpdateInterviewById, method: "PUT", id: string): Promise<T>;
+export function callInternAPIById<T = Interview>(api: InternApiRoutes.UpdateInterviewById, method: "PUT", id: string, body: any): Promise<T>;
 export function callInternAPIById<T = Interview>(api: InternApiRoutes.DeleteInterviewById, method: "DELETE", id: string): Promise<T>;
 
-export async function callInternAPIById<T>(api: InternApiRoutes, method: Methods, id?: any): Promise<T> {
+export async function callInternAPIById<T>(api: InternApiRoutes, method: Methods, id?: any, body?: any): Promise<T> {
     const url = `${env.INTERN_PORTAL_BACKEND_URL}${api}`.replace("{id}", id);
     const headers = {
         "Content-Type": "application/json",

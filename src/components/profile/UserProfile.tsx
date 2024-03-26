@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { User, Interview, mockInterview, mockCompany } from "@/mock_data/mocks";
+import { User, Interview, mockInterview, mockCompany, Company } from "@/mock_data/mocks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPencil, faSave } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,8 +8,21 @@ type Prop = {
   user: User;
 };
 
+async function GetCompany(companyID: string): Promise<Company> {
+  const response = await fetch(`/api/company/${companyID}/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }) as Response;
+  const data = (await response.json()).data as Company;
+  console.log('Companydddd:', data);
+  return data
+}
+
 export default function UserProfile({ user }: Prop) {
   const [interviews, setInterviews] = useState<Interview[]>(mockInterview);
+  const [company_name, setCompany_name] = useState<string[]>([]);
   useEffect(() => {
     const fetchInterviews = async () => {
       const interviews = await fetch(`/api/booking/`, {
@@ -19,6 +32,14 @@ export default function UserProfile({ user }: Prop) {
         },
       }).then((res) => res.json());
       setInterviews(interviews?.data as Interview[]);
+      // clear company_name
+      setCompany_name([]);
+      interviews?.data?.forEach((interview: Interview, index: number) => {
+        GetCompany(interview.company).then((company) => {
+          const cname = company.name;
+          setCompany_name((company_name) => [...company_name, cname]);
+        });
+      });
     };
     fetchInterviews();
   }, [user._id]);
@@ -54,14 +75,16 @@ export default function UserProfile({ user }: Prop) {
         </div>
         <div className="overflow-y-auto h-64 p-5">
           <h1 className="text-[24px] font-bold border-b-2 border-black mb-5 pb-3">รายการจอง</h1>
-          {interviews?.map((interview: Interview) => {
-            const company = mockCompany.find((company) => company._id === interview.company);
+          {interviews?.map((interview: Interview, index: number) => {
             return (
               <div key={interview._id}>
                 <div className="font-bold lg:text-[18px] text-[14px] my-2 flex justify-between">
                   {/* Company and interview date */}
                   <span>
-                    {company?.name} -
+                    {interview.company && company_name[index] ? (
+                      company_name[index]
+                    )
+                      : 'Company Name not found'}
                     {/* Render input field for date */}
                     <input
                       type="text"

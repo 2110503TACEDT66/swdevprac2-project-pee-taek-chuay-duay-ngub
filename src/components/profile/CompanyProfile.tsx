@@ -19,6 +19,7 @@ export default function CompanyProfile({ company }: Prop) {
           'Content-Type': 'application/json',
         },
       }).then((res) => res.json());
+      console.log('Interviews Shit:', interviews);
       setInterviews(interviews.data['interviews'] as Interview[]);
     };
     fetchInterviews();
