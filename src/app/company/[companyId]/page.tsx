@@ -18,81 +18,6 @@ interface Job {
   id: string;
 }
 
-const mockJobs: Job[] = [
-  {
-    _id: "1",
-    name: "Job 1",
-    address: "123 Main Street",
-    website: "www.example.com/job1",
-    image:
-      "https://assets.baanfinder.com/gz6hk3s7d3dqfdq67t75t5ovsr4uuj7rr6xs46qd1rk0n0xmwlzcp9l1tj5g9zdvzjcbgl1fh1midovjai1k9zhlquuykebscnesbfw41tje2fizrvzat1hcsqiyhx4w.jpg",
-    description: "Lofkjnwfklfklwmfklw klgerklfgmr3kmkrlwefmkl",
-    telephoneNumber: "123-456-7890",
-    __v: 0,
-    id: "1",
-  },
-  {
-    _id: "2",
-    name: "Job 2",
-    address: "456 Elm Street",
-    website: "www.example.com/job2",
-    image:
-      "https://assets.baanfinder.com/gz6hk3s7d3dqfdq67t75t5ovsr4uuj7rr6xs46qd1rk0n0xmwlzcp9l1tj5g9zdvzjcbgl1fh1midovjai1k9zhlquuykebscnesbfw41tje2fizrvzat1hcsqiyhx4w.jpg",
-    description: "Lofkjnwfklfklwmfklw klgerklfgmr3kmkrlwefmkl 2",
-    telephoneNumber: "456-789-0123",
-    __v: 0,
-    id: "2",
-  },
-  {
-    _id: "3",
-    name: "Job 3",
-    address: "456 Elm Street",
-    website: "www.example.com/job2",
-    image:
-      "https://assets.baanfinder.com/gz6hk3s7d3dqfdq67t75t5ovsr4uuj7rr6xs46qd1rk0n0xmwlzcp9l1tj5g9zdvzjcbgl1fh1midovjai1k9zhlquuykebscnesbfw41tje2fizrvzat1hcsqiyhx4w.jpg",
-    description: "Lofkjnwfklfklwmfklw klgerklfgmr3kmkrlwefmkl 2",
-    telephoneNumber: "456-789-0123",
-    __v: 0,
-    id: "2",
-  },
-  {
-    _id: "4",
-    name: "Job 4",
-    address: "123 Main Street",
-    website: "www.example.com/job1",
-    image:
-      "https://assets.baanfinder.com/gz6hk3s7d3dqfdq67t75t5ovsr4uuj7rr6xs46qd1rk0n0xmwlzcp9l1tj5g9zdvzjcbgl1fh1midovjai1k9zhlquuykebscnesbfw41tje2fizrvzat1hcsqiyhx4w.jpg",
-    description: "Lofkjnwfklfklwmfklw klgerklfgmr3kmkrlwefmkl 1",
-    telephoneNumber: "123-456-7890",
-    __v: 0,
-    id: "1",
-  },
-  {
-    _id: "5",
-    name: "Job 5",
-    address: "456 Elm Street",
-    website: "www.example.com/job2",
-    image:
-      "https://assets.baanfinder.com/gz6hk3s7d3dqfdq67t75t5ovsr4uuj7rr6xs46qd1rk0n0xmwlzcp9l1tj5g9zdvzjcbgl1fh1midovjai1k9zhlquuykebscnesbfw41tje2fizrvzat1hcsqiyhx4w.jpg",
-    description: "Lofkjnwfklfklwmfklw klgerklfgmr3kmkrlwefmkl 2",
-    telephoneNumber: "456-789-0123",
-    __v: 0,
-    id: "2",
-  },
-  {
-    _id: "66016ec2aa09f210ac264148",
-    name: "Job 6",
-    address: "456 Elm Street",
-    website: "www.example.com/job2",
-    image:
-      "https://assets.baanfinder.com/gz6hk3s7d3dqfdq67t75t5ovsr4uuj7rr6xs46qd1rk0n0xmwlzcp9l1tj5g9zdvzjcbgl1fh1midovjai1k9zhlquuykebscnesbfw41tje2fizrvzat1hcsqiyhx4w.jpg",
-    description: "Lofkjnwfklfklwmfklw klgerklfgmr3kmkrlwefmkl 2",
-    telephoneNumber: "456-789-0123",
-    __v: 0,
-    id: "2",
-  },
-];
-
 async function getCompany(companyId: string): Promise<Job> {
   const company = await fetch(`/api/company/${companyId}`);
   const companyData = await company.json() as {
@@ -131,8 +56,8 @@ export default function Home({ params }: { params: { companyId: string } }) {
         company ? (
           <div className="border-2 border-gray-300 rounded-2xl w-[70%] mx-auto">
 
-            <div className="flex justify-around mx-auto p-5 py-[50px]">
-              <div>
+            <div className="flex lg:justify-around mx-auto p-5 py-[50px] justify-center  flex-wrap lg:flex-nowrap">
+              <div className="me-[60px]">
                 <div className="mb-2">
                   <Link href={'/explore'} className="mb-[20px] text-[20px]">
                     <FontAwesomeIcon icon={faArrowLeftLong} className="fas fa-check" style={{ color: "black" }}

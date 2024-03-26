@@ -25,7 +25,7 @@ export default function Navbar() {
 
   const dropDownItems2 = [
     { text: "Explore", url: "/explore" },
-    { text: "Profile", url: "#" },
+    { text: "Profile", url: "/profile" },
     {
       text: "Sign Out",
       url: "#",
