@@ -4,9 +4,10 @@ type Props = {
   profileMenuOpen: boolean;
   setProfileMenuOpen: Dispatch<SetStateAction<boolean>>;
   username: string;
+  role: string;
 };
 
-export default function NavBarProfileCard({ setProfileMenuOpen, profileMenuOpen, username }: Props) {
+export default function NavBarProfileCard({ setProfileMenuOpen, profileMenuOpen, username, role }: Props) {
   const toggleProfileMenu = () => {
     setProfileMenuOpen(!profileMenuOpen);
   };
@@ -26,7 +27,9 @@ export default function NavBarProfileCard({ setProfileMenuOpen, profileMenuOpen,
       </svg>
       <div className="flex flex-col justify-center items-start">
         <div className="text-xl">{username}</div>
-        <div className="text-sm text-gray-600">role</div>
+        <div className="text-sm text-gray-600">{
+          role
+        }</div>
       </div>
     </button>
   );
