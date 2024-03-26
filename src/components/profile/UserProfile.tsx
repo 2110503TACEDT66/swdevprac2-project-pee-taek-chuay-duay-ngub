@@ -75,7 +75,17 @@ export default function UserProfile({ user }: Prop) {
                     <FontAwesomeIcon icon={faSave} className="w-[20px] mx-1" style={{ color: 'grey' }} />
                   </button>
                   {/* Delete button */}
-                  <button>
+                  <button onClick={() => {
+                    fetch(`/api/booking/${interview._id}`, {
+                      method: 'DELETE',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                    }).then(() => {
+                      const updatedInterviews = interviews.filter((i) => i._id !== interview._id);
+                      setInterviews(updatedInterviews);
+                    });
+                  }}>
                     <FontAwesomeIcon icon={faTrashAlt} className="w-[20px] mx-1" style={{ color: 'red' }} />
                   </button>
                 </div>
