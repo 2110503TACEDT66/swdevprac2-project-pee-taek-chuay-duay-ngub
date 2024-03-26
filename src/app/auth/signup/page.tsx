@@ -1,5 +1,6 @@
 'use client'
 import { useAlert } from '@/components/alert/Context';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 
 export default function Signup() {
@@ -65,6 +66,18 @@ export default function Signup() {
                 name: Firstname + " " + Lastname,
                 telephoneNumber: telephoneNumber,
                 password: password
+            });
+            // do signin
+            const result = signIn('credentials', {
+                email: email,
+                password: password,
+                redirect: false,
+            }).then((result) => {
+                if (!result?.ok) {
+                    return
+                } else {
+                    window.location.href = '/explore';
+                }
             });
         }
 
