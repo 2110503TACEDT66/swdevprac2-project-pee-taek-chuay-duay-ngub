@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NextAuthProvider from "@/components/nextauth";
 import Navbar from "@/components/Navbar";
+import AlertContextManager from "@/components/alert/alert";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
-          <Navbar />
-          <div className="h-[105px]">{/*THIS IS JUST FOR PADDING FORM NAVIGATION BAR*/}</div>
-          {children}
+          <AlertContextManager>
+            <Navbar />
+            <div className="h-[105px]">{/*THIS IS JUST FOR PADDING FORM NAVIGATION BAR*/}</div>
+            {children}
+          </AlertContextManager>
         </NextAuthProvider>
       </body>
-    </html>
+    </html >
   );
 }

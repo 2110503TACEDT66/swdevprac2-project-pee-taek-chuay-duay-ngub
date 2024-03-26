@@ -21,11 +21,11 @@ export default function Home() {
           ค้นหาโอกาสมากมายของคุณที่นี่
         </div>
         <Link
-            href={"/auth/signup"}
-            className="mx-auto mt-5 flex items-center justify-center bg-primary text-white px-[1rem] text-[24px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none w-[30%]"
-          >
-            ค้นหาบริษัท
-          </Link>
+          href={"/explore"}
+          className="mx-auto mt-5 flex items-center justify-center bg-primary text-white px-[1rem] text-[24px] rounded-[10px] h-[55px] border-2 border-transparent hover:bg-cutoff-white hover:border-primary hover:text-primary flex-none w-[30%]"
+        >
+          ค้นหาบริษัท
+        </Link>
       </div>
     </main>
   );
