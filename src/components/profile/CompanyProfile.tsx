@@ -81,7 +81,17 @@ export default function CompanyProfile({ company }: Prop) {
                     />
                   </span>
                   {/* Edit button */}
-                  <button>
+                  <button onClick={async () => {
+                    await fetch(`/api/booking/${interview._id}`, {
+                      method: 'PUT',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        bookTime: interview.date,
+                      }),
+                    });
+                  }}>
                     <FontAwesomeIcon icon={faSave} className="w-[20px] mx-1" style={{ color: 'grey' }} />
                   </button>
                   {/* Delete button */}
