@@ -84,7 +84,21 @@ export default function CompanyProfile({ company }: Prop) {
                     <FontAwesomeIcon icon={faSave} className="w-[20px] mx-1" style={{ color: 'grey' }} />
                   </button>
                   {/* Delete button */}
-                  <button>
+                  <button onClick={
+                    () => {
+                      // Delete interview, update state
+                      const updatedInterviews = interviews.filter((interview) => interview._id !== interview._id);
+                      setInterviews(updatedInterviews);
+                      // actual delete request
+                      fetch(`/api/booking/${interview._id}`, {
+                        method: 'DELETE',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                      }).then((res) => res.json());
+                    }
+
+                  }>
                     <FontAwesomeIcon icon={faTrashAlt} className="w-[20px] mx-1" style={{ color: 'red' }} />
                   </button>
                 </div>
