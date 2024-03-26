@@ -65,7 +65,7 @@ export default function Signup() {
                             value={Firstname}
                             onChange={handleChange}
                             required
-                            className="w-full p-2 border border-gray-300 rounded-md"
+                            className="w-full p-2 border border-gray-300 rounded-md text-black"
                         />
                     </div>
                     <div className="w-1/2 ml-2">
@@ -77,7 +77,7 @@ export default function Signup() {
                             value={Lastname}
                             onChange={handleChange}
                             required
-                            className="w-full p-2 border border-gray-300 rounded-md"
+                            className="w-full p-2 border border-gray-300 rounded-md text-black"
                         />
                     </div>
                 </div>
@@ -91,7 +91,7 @@ export default function Signup() {
                             value={password}
                             onChange={handleChange}
                             required
-                            className="w-full p-2 border border-gray-300 rounded-md"
+                            className="w-full p-2 border border-gray-300 rounded-md text-black"
                         />
                     </div>
                     <div className="w-1/2 ml-2">
@@ -103,7 +103,7 @@ export default function Signup() {
                             value={confirmPassword}
                             onChange={handleChange}
                             required
-                            className="w-full p-2 border border-gray-300 rounded-md"
+                            className="w-full p-2 border border-gray-300 rounded-md text-black"
                         />
                     </div>
                 </div>
@@ -116,7 +116,7 @@ export default function Signup() {
                         value={email}
                         onChange={handleChange}
                         required
-                        className="w-full p-2 border border-gray-300 rounded-md"
+                        className="w-full p-2 border border-gray-300 rounded-md text-black"
                     />
                 </div>
                 <div className="mb-4">
@@ -128,10 +128,10 @@ export default function Signup() {
                         value={telephoneNumber}
                         onChange={handleChange}
                         required
-                        className="w-full p-2 border border-gray-300 rounded-md"
+                        className="w-full p-2 border border-gray-300 rounded-md text-black"
                     />
                 </div>
-                <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-md bg-primary mt-4">
+                <button type="submit" className="w-full p-2 text-white rounded-md bg-primary mt-4">
                     Sign Up
                 </button>
             </form>

@@ -65,7 +65,7 @@ export default function Signup() {
               value={email}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </div>
           <div className="mb-4">
@@ -79,7 +79,7 @@ export default function Signup() {
               value={password}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </div>
           <button
