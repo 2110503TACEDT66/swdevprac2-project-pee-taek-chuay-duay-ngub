@@ -35,6 +35,7 @@ export default function CompanyProfile({ company }: Prop) {
         });
       });
     };
+
     fetchInterviews();
   }, [company.id]);
 
