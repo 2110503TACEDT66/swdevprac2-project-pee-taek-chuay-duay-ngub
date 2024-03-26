@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -93,6 +93,10 @@ const mockJobs: Job[] = [
   },
 ];
 
+async function getCompany(companyId: string): Promise<Job> {
+  const company = await fetch(`/api/company/${companyId}`);
+  return company.json();
+}
 
 export default function Home({ params }: { params: { companyId: string } }) {
   const company = mockJobs.find((job) => job._id === params.companyId);
@@ -101,6 +105,11 @@ export default function Home({ params }: { params: { companyId: string } }) {
   const handleDateChange = (date: any) => {
     setSelectedDate(date);
   }
+
+  useEffect(() => {
+    getCompany(params.companyId);
+  }, []);
+
   return (
     <div className="text-black bg-white h-[100vh]">
       <div className="py-[40px]"></div>
