@@ -68,17 +68,22 @@ export default function Signup() {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100 text-primary">
       {session.data?.user?.email ? (
-        <div className="p-8 bg-white rounded-lg shadow-md">
-          <h1 className="text-2xl font-semibold text-center my-4">
-            {session.data.user.email} is already signed in
-          </h1>
+        <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center w-1/2">
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-2xl font-semibold text-center my-4">
+              {session.data.user.email}
+            </h1>
+            <h2 className="text-black text-lg">
+              is already signed in
+            </h2>
+          </div>
           <button
             onClick={() =>
               signOut({
                 callbackUrl: "/",
               })
             }
-            className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="w-full p-2 bg-primary text-white rounded-md mt-4"
           >
             Sign Out
           </button>

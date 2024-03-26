@@ -18,7 +18,7 @@ export default function AlertContextManager({ children }: { children: React.Reac
             {showAlert && (
                 <Alert variant="filled" severity={
                     showAlert.mode ?? 'success'
-                } className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-45 animate-pulse">
+                } className='fixed top-0 w-full z-50 bg-black text-white opacity-50'>
                     {showAlert.message}
                 </Alert>
             )}
