@@ -1,4 +1,5 @@
 'use client'
+import { useAlert } from "@/components/alert/Context";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -10,6 +11,7 @@ export default function Signup() {
   });
 
   const { email, password } = formData;
+  const alert = useAlert();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -19,13 +21,48 @@ export default function Signup() {
     });
   };
 
+  const searchParams = new URLSearchParams(window.location.search);
+  // check url if user successfully signed up
+  const validateSignup = () => {
+    const url = window.location.href;
+    const grabError = searchParams.get("error");
+    // if ?error is in the url, show error alert
+    if (grabError) {
+      alert.showAlert(
+        {
+          message: "Error: " + grabError,
+          mode: "error"
+        }
+      )
+    }
+  }
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn("credentials", {
+    await signIn("credentials", {
       email: email,
       password: password,
-      callbackUrl: "/",
-    });
+      redirect: false,
+    }).then((res) => {
+      if (res?.error) {
+        alert.showAlert(
+          {
+            message: "Error: " + res.error,
+            mode: "error"
+          }
+        )
+      } else {
+        alert.showAlert(
+          {
+            message: "Successfully signed in",
+            mode: "success"
+          }
+        )
+      }
+    }
+    );
+
   };
 
   return (
