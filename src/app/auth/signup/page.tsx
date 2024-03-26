@@ -1,19 +1,21 @@
 'use client'
+import { useAlert } from '@/components/alert/Context';
 import { useState } from 'react';
 
 export default function Signup() {
     const [formData, setFormData] = useState({
         email: '',
-        Firstname : '',
+        Firstname: '',
         Lastname: '',
         telephoneNumber: '',
         password: '',
         confirmPassword: '', // Added confirmPassword field
     });
+    const alert = useAlert();
 
     const { email, Firstname, Lastname, telephoneNumber, password, confirmPassword } = formData;
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -21,10 +23,16 @@ export default function Signup() {
         });
     };
 
-    const handleSubmit = async (e) => {
-        if(password != confirmPassword){
-            alert('correct password');
-        }else{
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (password != confirmPassword) {
+            alert.showAlert(
+                {
+                    message: 'Password and Confirm Password do not match',
+                    mode: 'error'
+                }
+            );
+        } else {
             e.preventDefault();
             // Implement your signup logic here
             fetch('/api/auth/register', {
@@ -34,14 +42,27 @@ export default function Signup() {
                 },
                 body: JSON.stringify({
                     email: email,
-                    name: Firstname+" "+Lastname,
+                    name: Firstname + " " + Lastname,
                     telephoneNumber: telephoneNumber,
                     password: password
                 }),
-            });
+            }).then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                return response.json().then((data) => {
+                    throw new Error(data.message || 'Something went wrong');
+                });
+            }).catch((error) => {
+                alert.showAlert({
+                    message: "Failed to register user. It's either the email already exists or something went wrong.",
+                    mode: 'error'
+                });
+            }
+            );
             console.log('Form Data:', {
                 email: email,
-                name: Firstname+" "+Lastname,
+                name: Firstname + " " + Lastname,
                 telephoneNumber: telephoneNumber,
                 password: password
             });
