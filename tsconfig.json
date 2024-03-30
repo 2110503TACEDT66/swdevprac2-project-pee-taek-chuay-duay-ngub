@@ -7,11 +7,12 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node", // Adjusted from "bundler" to "node" for Jest compatibility
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["jest"], // Added "jest" to the types array
     "plugins": [
       {
         "name": "next"
@@ -21,6 +22,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "__test__/**/*.ts", // Include your test directory
+    "__test__/**/*.tsx" // Include your test directory for .tsx files
+, "jest.config.ts", "jest.config.js"  ],
   "exclude": ["node_modules"]
 }
